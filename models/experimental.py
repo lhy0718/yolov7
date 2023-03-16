@@ -190,7 +190,14 @@ class ONNX_ORT(nn.Module):
         selected_categories = category_id[X, Y, :].float()
         selected_scores = max_score[X, Y, :]
         X = X.unsqueeze(1).float()
-        return torch.cat([X, selected_boxes, selected_categories, selected_scores], 1)
+
+        # !!CHANGED!!
+        return\
+            selected_scores.permute(1,0),\
+            selected_indices.shape[0].unsqueeze(-1).float(),\
+            selected_categories,\
+            (selected_boxes/300).unsqueeze(-1).permute(2,0,1)
+        # !!CHANGED!!
 
 class ONNX_TRT(nn.Module):
     '''onnx module with TensorRT NMS operation.'''
@@ -236,6 +243,7 @@ class End2End(nn.Module):
         self.end2end.eval()
 
     def forward(self, x):
+        x = x.permute(0,3,1,2) # !!CHANGED!!
         x = self.model(x)
         x = self.end2end(x)
         return x

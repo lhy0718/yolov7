@@ -116,6 +116,7 @@ if __name__ == '__main__':
     # ONNX export
     try:
         import onnx
+        img = img.permute((0,2,3,1))
 
         print('\nStarting ONNX export with onnx %s...' % onnx.__version__)
         f = opt.weights.replace('.pt', '.onnx')  # filename
