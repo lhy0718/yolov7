@@ -1,4 +1,4 @@
-name: yolo7
+name: yolov7
 channels:
   - conda-forge
   - defaults
