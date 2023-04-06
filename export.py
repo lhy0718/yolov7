@@ -65,6 +65,7 @@ if __name__ == '__main__':
         # elif isinstance(m, models.yolo.Detect):
         #     m.forward = m.forward_export  # assign forward (optional)
     model.model[-1].export = not opt.grid  # set Detect() layer grid export
+    # img = img.permute(0,2,3,1) # !!CHANGED!!
     y = model(img)  # dry run
     if opt.include_nms:
         model.model[-1].include_nms = True
@@ -116,10 +117,9 @@ if __name__ == '__main__':
     # ONNX export
     try:
         import onnx
-        img = img.permute((0,2,3,1))
 
         print('\nStarting ONNX export with onnx %s...' % onnx.__version__)
-        f = opt.weights.replace('.pt', '.onnx')  # filename
+        f = opt.weights.replace('.pt', '.onnx').replace('-', '_')  # filename
         model.eval()
         output_names = ['classes', 'boxes'] if y is None else ['output']
         dynamic_axes = None

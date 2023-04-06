@@ -243,7 +243,7 @@ class End2End(nn.Module):
         self.end2end.eval()
 
     def forward(self, x):
-        x = x.permute(0,3,1,2) # !!CHANGED!!
+        # x = x.permute(0,3,1,2) # !!CHANGED!!
         x = self.model(x)
         x = self.end2end(x)
         return x
