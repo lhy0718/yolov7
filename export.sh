@@ -3,7 +3,8 @@
 #usage: bash ./export.sh
 
 INPUT_SIZES=(320 640)
-MODEL_NAMES=(yolov7-tiny yolov7 yolov7x yolov7-w6 yolov7-e6 yolov7-d6 yolov7-e6e)
+# MODEL_NAMES=(yolov7-tiny yolov7 yolov7x yolov7-w6 yolov7-e6 yolov7-d6 yolov7-e6e)
+MODEL_NAMES=(yolov7-tiny)
 
 for m in ${MODEL_NAMES[@]}; do
 

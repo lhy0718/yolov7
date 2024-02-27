@@ -77,7 +77,7 @@ class Ensemble(nn.ModuleList):
             y.append(module(x, augment)[0])
         # y = torch.stack(y).max(0)[0]  # max ensemble
         # y = torch.stack(y).mean(0)  # mean ensemble
-        y = torch.cat(y, 1)  # nms ensemble
+        # y = torch.cat(y, 1)  # nms ensemble
         return y, None  # inference, train output
 
 
@@ -243,7 +243,7 @@ class End2End(nn.Module):
         self.end2end.eval()
 
     def forward(self, x):
-        # x = x.permute(0,3,1,2) # !!CHANGED!!
+        x = x.permute(0,3,1,2) # !!CHANGED!!
         x = self.model(x)
         x = self.end2end(x)
         return x
